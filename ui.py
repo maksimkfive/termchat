@@ -24,7 +24,7 @@ class ChatUI:
             if s == "!quit":
                 client.send(Message("quit"))
                 break
-            elif s == "list":
+            elif s == "!list":
                 client.send(Message("users"))
             else:
                 client.send(Message("message", text=s))
