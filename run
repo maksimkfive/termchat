@@ -10,7 +10,7 @@ if [[ $mode == "server" ]]; then
   docker run --rm -p ${port}:${port} chat-server ${port}
 elif [[ $mode == "client" ]]; then
   if [[ $# -ne 3 ]]; then
-    echo "Usage: $0 client SERVER_IP PORT"
+    echo "Usage: $0 client SERVER_IP PORT1"
     exit 1
   fi
   ip=$2; port=$3
