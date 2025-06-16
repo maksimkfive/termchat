@@ -1,0 +1,27 @@
+name: Deploy to Dedicated Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.DEDICATED_HOST }}
+          username: ${{ secrets.DEDICATED_USERNAME }}
+          password: ${{ secrets.DEDICATED_PASSWORD }}
+          script: |
+            cd ~/chat
+            git pull origin main
+            docker build -t chat-server .
+            docker compose down
+            docker compose up -d
+            docker image prune -f

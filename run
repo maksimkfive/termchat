@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# usage: ./chat.sh server [PORT]
+#        ./chat.sh client SERVER_IP PORT
+
+mode=$1
+if [[ $mode == "server" ]]; then
+  port=${2:-6000}
+  # билдим и запускаем контейнер
+  docker build -t chat-server .
+  docker run --rm -p ${port}:${port} chat-server ${port}
+elif [[ $mode == "client" ]]; then
+  if [[ $# -ne 3 ]]; then
+    echo "Usage: $0 client SERVER_IP PORT"
+    exit 1
+  fi
+  ip=$2; port=$3
+  python3 client.py $ip $port
+else
+  echo "Usage: $0 {server|client}"
+  exit 1
+fi
