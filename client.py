@@ -31,6 +31,7 @@ class ChatClient:
 
 if __name__=="__main__":
     import ui, sys
+
     h,p = sys.argv[1], int(sys.argv[2])
     nick = input("Name: ")
     ChatClient(h,p,nick, ui.ChatUI()).start()
